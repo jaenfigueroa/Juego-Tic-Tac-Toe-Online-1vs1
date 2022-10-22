@@ -56,50 +56,97 @@ let jugadoresEspera = []
 
 let jugadoresParejas = [
   [
-    {
-      "id": 11111,
-      "nombre": 'Jaen'
-    },
-    {
-      "id": 22222,
-      "nombre": 'Ahini'
-    }
+    jugadores = [
+      {
+        "id": 11111,
+        "nombre": 'Mario',
+        "permiso": true
+      },
+      {
+        "id": 22222,
+        "nombre": 'Sofia',
+        "permiso": false
+      }
+    ],
+    tablero = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
   ],
   [
-    {
-      "id": 33333,
-      "nombre": 'Jose'
-    },
-    {
-      "id": 44444,
-      "nombre": 'Sofia'
-    }
+    jugadores = [
+      {
+        "id": 33333,
+        "nombre": 'Jaen',
+        "permiso": true
+      },
+      {
+        "id": 44444,
+        "nombre": 'Ahini',
+        "permiso": false
+      }
+    ],
+    tablero = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
   ]
 ]
 
+
+/////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 ///PARA RECIBIR TABLERO ACTUALIZADO//////////////////////////
-let contenidoActualizado = ['X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X']
 
-servidor.post('/enviarTablero/:id', (req, res) => {
+servidor.post('/enviarTablero/:indiceUsuario/:indiceGrupo', (req, res) => {
+  const indiceGrupo = req.params.indiceGrupo
+  // const indiceUsuario = req.params.indiceUsuario
+  const tableroActualizado = req.body.contenido
 
-  contenidoActualizado = req.body.contenido
+  let grupoPareja = jugadoresParejas[indiceGrupo]
+  grupoPareja[1] = tableroActualizado //ono
+
+  let jugador0 = grupoPareja[0][0]
+  let jugador1 = grupoPareja[0][1]
+
+  jugador0.permiso = !jugador0.permiso
+  jugador1.permiso = !jugador1.permiso
 
   res.json({
-    candado: true
+    candado: [jugador0.permiso, jugador1.permiso]
   })
 })
 
-///PARA ENVIAR TABLERO ACTUALIZADO////////////////////////////
-servidor.get('/traerTablero/:id', (req, res) => {
 
-  res.json({ contenido: contenidoActualizado })
+///PARA ENVIAR TABLERO ACTUALIZADO////////////////////////////
+servidor.get('/traerTablero/:id/:indiceGrupo', (req, res) => {
+  let indiceGrupo = req.params.indiceGrupo
+  // let idUsuario = req.params.idUsuario
+
+  const grupoPareja = jugadoresParejas[indiceGrupo][1]
+
+  console.log(grupoPareja);
+  console.log(typeof grupoPareja);
+
+  res.json({
+    array: grupoPareja
+  })
 })
 
+/////////////////////////////////////////////////////////////
+//ESPERAR TURNO//////////////////////////////////////////////
+servidor.get('/esperarTurno/:indiceGrupo/', (req, res) => {
+  const indiceGrupo = req.params.indiceGrupo
+
+  let grupoPareja = jugadoresParejas[indiceGrupo]
+
+  let jugador0 = grupoPareja[0][0]
+  let jugador1 = grupoPareja[0][1]
+
+  res.json({
+    candado: [jugador0.permiso, jugador1.permiso],
+    // tablero: jugadoresParejas[1][1]
+  })
+
+})
 
 /////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-const PUERTO = 3000
+const PUERTO = process.env.PORT || 3000
 
 servidor.listen(PUERTO, () => {
   console.log(`Servidor escuchando en el puerto: ${PUERTO}`);

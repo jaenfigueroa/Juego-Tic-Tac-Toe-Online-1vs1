@@ -1,0 +1,13 @@
+POST http://localhost:3000/unirme/jaen HTTP/1.1
+
+###
+POST http://localhost:3000/enviarTablero/11111 HTTP/1.1
+Content-Type: application/json
+
+{
+  "contenido": ["X","X","X","X","X","X","X","X","A"]
+}
+###
+GET http://localhost:3000/traerTablero/11111 HTTP/1.1
+
+###

@@ -1,4 +1,4 @@
-# <div align="center">Juego Tic Tac Toe Online 1vs1 ❌⭕</div>
+# <div align="center">Juego Tic Tac Toe ❌⭕ Online 1vs1 </div>
 
 ## 🔗 Vista previa en Desktop
 

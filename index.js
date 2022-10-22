@@ -88,17 +88,22 @@ servidor.post('/verificarPareja/:id', (req, res) => {
 
   if (jugadoresConPareja.length > 0) {
 
-    let indiceDelGrupo = buscarindexGrupo(jugadoresConPareja, id)
+    let resultadoArray = buscarindexGrupo(jugadoresConPareja, id)
+    let indiceDelGrupo = resultadoArray[0]
 
-    console.log('inidce del grupo', indiceDelGrupo);
+    // console.log('inidce del grupo', indiceDelGrupo);
 
-    if (indiceDelGrupo !== -1) {
+    if (indiceDelGrupo !== 'no-existe') {
+
+      let indiceJugador = resultadoArray[1]
+
+      let arrayCompleto = jugadoresConPareja[indiceDelGrupo]
 
       res.json({
         seEncontro: true,
         indiceDelGrupo,
-        indexJugador: 10000,
-        arrayCompleto: 20000,
+        indiceJugador,
+        arrayCompleto,
       })
     } else {
       res.json({
@@ -118,21 +123,20 @@ servidor.post('/verificarPareja/:id', (req, res) => {
 /////////////////////////////////////////////////////////////
 function buscarindexGrupo(array, id) {
 
+  console.log(array);
+
   for (let x = 0; x < array.length; x++) {
 
     for (let y = 0; y < 2; y++) {
 
-      for (let z = 0; z < 2; z++) {
-
-        if (array[x][y][z][0] == id) {
-          console.log('se encontro el index del grupo es: ' + x);
-          return x
-        }
-
+      if (array[x][0][y][0] == id) {
+        console.log('se encontro el index del grupo es: ' + x);
+        return [x, y]
       }
+
     }
   }
-  return -1
+  return 'no-existe'
 }
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////

@@ -1,6 +1,21 @@
 POST http://localhost:3000/unirme/jaen HTTP/1.1
+###
+POST http://localhost:3000/unirme/ahini HTTP/1.1
 
 ###
+POST http://localhost:3000/verificarPareja/maria HTTP/1.1
+
+
+
+
+
+
+
+
+
+
+
+
 POST http://localhost:3000/enviarTablero/1/1 HTTP/1.1
 Content-Type: application/json
 

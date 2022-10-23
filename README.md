@@ -2,13 +2,13 @@
 
 ## 🔗 Vista previa en Mobile
 
-![App Screenshot](../FRONTEND/assets/captura-mobile1.png)
-![App Screenshot](../FRONTEND/assets/captura-mobile2.png)
+![App Screenshot](./assets/captura-mobile1.png)
+![App Screenshot](./assets/captura-mobile2.png)
 
 ## 🔗 Vista previa en Desktop
 
-![App Screenshot](../FRONTEND/assets/captura-desktop1.png)
-![App Screenshot](../FRONTEND/assets/captura-desktop2.png)
+![App Screenshot](./assets/captura-desktop1.png)
+![App Screenshot](./assets/captura-desktop2.png)
 
 <!-- ## 🔗 Sitio web de la aplicacion -->
 

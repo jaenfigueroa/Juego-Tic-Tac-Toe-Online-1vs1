@@ -3,10 +3,12 @@
 ## 🔗 Vista previa en Mobile
 
 <div >
-  <img src="./assets/captura-mobile1.png" align="center" style="width: 50%" />
+  <img src="./assets/captura-mobile1.png" align="center" style="width: 30%" />
 </div>
+
+##
 <div >
-  <img src="./assets/captura-mobile2.png" align="center" style="width: 50%" />
+  <img src="./assets/captura-mobile2.png" align="center" style="width: 30%" />
 </div>
 
 ## 🔗 Vista previa en Desktop

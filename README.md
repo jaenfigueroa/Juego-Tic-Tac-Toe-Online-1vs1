@@ -10,6 +10,6 @@
 ![App Screenshot](./assets/captura-desktop1.png)
 ![App Screenshot](./assets/captura-desktop2.png)
 
-<!-- ## 🔗 Sitio web de la aplicacion -->
+## 🔗 Sitio web de la aplicacion
 
-<!-- https://chat-jaenfigueroa.herokuapp.com/ -->
+https://tic-tac-toe-jaenfigueroa.herokuapp.com/

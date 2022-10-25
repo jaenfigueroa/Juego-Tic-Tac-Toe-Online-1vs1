@@ -2,7 +2,7 @@
 
 ## 🔗 Vista previa en Mobile
 
-<div display="flex">
+<div display="flex" gap="20px">
   <img src="./assets/captura-mobile1.png" align="center" style="width: 30%" />
   <img src="./assets/captura-mobile2.png" align="center" style="width: 30%" />
 </div>

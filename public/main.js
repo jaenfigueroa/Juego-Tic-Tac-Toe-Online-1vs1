@@ -333,8 +333,8 @@ function desbloquearCajasVacias() {
 /////////////////////////////////////////////////////////////////////////////
 /// TAREAS PENDIENTES
 
-///1. COMPROBAR QUIEN GANO
-///2. MOSTRAR EL AVISO DE QUE GANO O PERDIO
+///1. COMPROBAR QUIEN GANO // COMPLETADO
+///2. MOSTRAR EL AVISO DE QUE GANO O PERDIO // COMPLETADO
 
 
 // MOSTRAR MENSAJE DEL GANADOR Y/O PERDEDOR/////////////////////////////////
@@ -401,3 +401,9 @@ botonVolverAJugar.addEventListener('click', volverAJugar)
 function volverAJugar() {
   location.reload()
 }
+
+//////////////////////////////////////////
+//////////////////////////////////////////
+//TAREAS PENDIENTES///////////////////////
+
+//1. OPTIMISAR EL JUEGO , QUITAR LO INNESARIO

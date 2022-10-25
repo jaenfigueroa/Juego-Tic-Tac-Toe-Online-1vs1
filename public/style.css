@@ -137,6 +137,68 @@ main {
   background-color: #ffb6dd;
 }
 
+/* SECCION 3/////////////////////////////////////// */
+.seccion3 {
+  background-color: #b6b6ff;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+.seccion3__aviso {
+  background-color: rgb(255, 255, 255);
+  height: 10rem;
+  width: 32rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+}
+.seccion3__aviso p,
+.seccion3__aviso span {
+  font-size: 4rem;
+  text-transform: uppercase;
+}
+.seccion3__aviso p:last-child {
+  font-size: 1.6rem;
+}
+
+.seccion3__volver {
+  /* background-color: cornflowerblue; */
+  width: 20rem;
+  height: 5rem;
+}
+.seccion3__volver button {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(255, 156, 200);
+  border: none;
+  border-radius: 1rem;
+  font-size: 2.5rem;
+  border: 2px solid black;
+}
+.seccion3__volver button:hover {
+  background-color: springgreen;
+}
+
+/* ///////////////////// */
+.ganaste {
+  background-color: rgb(255, 210, 86);
+}
+.perdiste {
+  background-color: rgb(163, 175, 255);
+}
+.efecto-blur {
+  filter: blur(2px);
+}
+
 @media (min-width: 768px) {
   /* /SECCION 1/////////////////////////////////// */
   .formulario__encabezado,

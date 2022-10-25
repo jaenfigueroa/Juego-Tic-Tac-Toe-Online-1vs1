@@ -201,8 +201,9 @@ function obtenerTableroNuevoDelHTML() {
 
 
 /// 1. ENVIAR EL ARRAY NUEVO AL ENEMIGO // COMPLETADO
-/// 2. TTAER EL TABLERO ACTUALIZADO DEL BACKEND // COMPLETADO
+/// 2. TRAER EL TABLERO ACTUALIZADO DEL BACKEND // COMPLETADO
 /// 3. RENDERIZAR EL ARRAY DEL TABLERO QUE LLEGA Y ACTIVAR TURNO DEL OTRO JUGADOR // COMPLETADO
+
 
 //ENVIAR TABLERO ACTUALIZADO////////////////////////////////////
 function enviarTableroActualizado() {
@@ -319,25 +320,22 @@ function desbloquearCajasVacias() {
 ///2. MOSTRAR EL AVISO DE QUE GANO O PERDIO
 
 
-//COMPROBAR VICTORIA////////////////////////////////////////////////////////
-function comprobarVictoria(t) {
-  if (
-    t[0] == t[1] && t[0] == t[2] ||
-    t[3] == t[4] && t[3] == t[5] ||
-    t[6] == t[7] && t[6] == t[8] ||
-    t[0] == t[3] && t[0] == t[6] ||
-    t[1] == t[4] && t[1] == t[7] ||
-    t[2] == t[5] && t[2] == t[8] ||
-    t[0] == t[4] && t[0] == t[8] ||
-    t[6] == t[4] && t[6] == t[2]
-  ) {
-    console.log('hay ganador')
-  } else {
-    console.log('no hay ganador')
-  }
+// MOSTRAR MENSAJE DEL GANADOR Y/O PERDEDOR////////////////////////////////////////
+const aviso1 = document.querySelector('#aviso1')
+const aviso2 = document.querySelector('#aviso2')
+
+
+///MOSTRAR GANADOR O PERDEDOR////////////////////////////
+function mostrarGanadorPerdedor(texto1 = '🥺PERDISTE🥺', texto2 = 'JUAN GANO LA PARTIDA') {
+  aviso1.textContent = texto1
+  aviso2.textContent = texto2
 }
 
 
-// MOSTRAR MENSAJE DEL GANADOR Y/O PERDEDOR////////////////////////////////////////
+///VOLVER A JUGAR/////////////////////////////////////////
+const botonVolverAJugar = document.querySelector('#volverAJugar')
+botonVolverAJugar.addEventListener('click', volverAJugar)
 
-
+function volverAJugar() {
+  location.reload()
+}

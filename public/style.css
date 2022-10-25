@@ -54,9 +54,6 @@ main {
   font-size: 2.8rem;
 }
 
-.desactivado {
-  display: none !important;
-}
 /* /SECCION 2/////////////////////////////////// */
 .seccion2 {
   /* background-color: cornflowerblue; */
@@ -139,7 +136,7 @@ main {
 
 /* SECCION 3/////////////////////////////////////// */
 .seccion3 {
-  background-color: #b6b6ff;
+  background-color: #b6b6ffa8;
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -189,10 +186,13 @@ main {
 }
 
 /* ///////////////////// */
-.ganaste {
+.desactivado {
+  display: none !important;
+}
+.amarillo {
   background-color: rgb(255, 210, 86);
 }
-.perdiste {
+.celeste {
   background-color: rgb(163, 175, 255);
 }
 .efecto-blur {

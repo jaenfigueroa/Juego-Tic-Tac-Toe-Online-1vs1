@@ -36,7 +36,7 @@ servidor.get('/registrarJugador/:nombreJugador', (req, res) => {
   //creamos el objeto con los datos del jugador nuevo
   let jugadorNuevo = {
     id: idNuevo,
-    nombre: nombreJugador,
+    nombre: nombreJugador
   }
 
   console.log('Objeto con los datos jugador nuevo:', jugadorNuevo);
@@ -59,7 +59,9 @@ servidor.get('/registrarJugador/:nombreJugador', (req, res) => {
         jugadoresEnEspera[0],
         jugadoresEnEspera[1]
       ],
-      tablero: tableroDefault
+      tablero: tableroDefault,
+      hayGanador: []
+      // hayGanador: [true, 'id']
     }
 
     console.log('Array de la nueva pareja: ' + nuevaPareja);
@@ -128,7 +130,9 @@ servidor.post('/verificarPareja/', (req, res) => {
 servidor.post('/enviarTablero/:idUsuario', (req, res) => {
   let indiceGrupo = req.body.indiceGrupoLocal
   let tableroActualizado = req.body.arrayTableroLocal
+  let nombreJugador = req.body.nombreJugadorLocal
 
+  console.log('linea 135: nombreJUgador: ' + nombreJugador);
   // console.log('indice del grupo: ', indiceGrupo);
   // console.log('tablero actualizado: ', tableroActualizado);
 
@@ -137,9 +141,37 @@ servidor.post('/enviarTablero/:idUsuario', (req, res) => {
 
   console.log('array de jugadores con pareja con el tablero actualizado: ', jugadoresConPareja);
 
-  res.json({
-    mensaje: 'tablero del backend actualizado con exito',
-  })
+  ///////////////////////////////////////////////PRUEBAS ABAJO
+  //comprobar si hay o no hay todavia un ganador
+  //necesitare: indice jugador, 
+  console.log('tablero actualizado: ' + tableroActualizado);
+  resultado = comprobarVictoria(tableroActualizado)
+
+  console.log('linea 149: resultado de comprobar victoria: ', resultado);
+
+  if (resultado) {
+    //asignar un valor true y el nombre del ganador al array, indicando que ya hay un ganador
+    jugadoresConPareja[indiceGrupo].hayGanador = [true, nombreJugador]
+
+    let hayGanador = jugadoresConPareja[indiceGrupo].hayGanador
+    console.log('linea 154: arrayde ganador' + jugadoresConPareja[indiceGrupo].hayGanador);
+
+    setTimeout(() => {
+      res.json({
+        mensaje: 'tablero del backend actualizado, hay ganador',
+        hayGanador
+      })
+    }, 500);
+
+  } else {
+    res.json({
+      mensaje: 'tablero del backend actualizado, no hay ganador',
+      hayGanador: [false]
+    })
+  }
+
+
+  ///////////////////////////////////////////////PRUEBAS ARRIBA
 })
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -153,9 +185,13 @@ servidor.post('/traerTablero/:idUsuario', (req, res) => {
 
   console.log('tablero actualizado para enviar: ', tableroActualizado);
 
+  //sacar el valor de si el array tiene un ganador asignado o todavia no
+  let hayGanador = jugadoresConPareja[indiceGrupo].hayGanador
+
   res.json({
     mensaje: 'indice del grupo recibido',
-    tableroActualizado
+    tableroActualizado,
+    hayGanador
   })
 
 })
@@ -164,18 +200,21 @@ servidor.post('/traerTablero/:idUsuario', (req, res) => {
 //COMPROBAR VICTORIA////////////////////////////////////////////////////////////////////////////////
 function comprobarVictoria(t) {
   if (
-    t[0] == t[1] && t[0] == t[2] ||
-    t[3] == t[4] && t[3] == t[5] ||
-    t[6] == t[7] && t[6] == t[8] ||
-    t[0] == t[3] && t[0] == t[6] ||
-    t[1] == t[4] && t[1] == t[7] ||
-    t[2] == t[5] && t[2] == t[8] ||
-    t[0] == t[4] && t[0] == t[8] ||
-    t[6] == t[4] && t[6] == t[2]
+    t[0] == t[1] && t[0] == t[2] && t[0] == ('X' || 'O') ||
+    t[3] == t[4] && t[3] == t[5] && t[3] == ('X' || 'O') ||
+    t[6] == t[7] && t[6] == t[8] && t[6] == ('X' || 'O') ||
+    t[0] == t[3] && t[0] == t[6] && t[0] == ('X' || 'O') ||
+    t[1] == t[4] && t[1] == t[7] && t[1] == ('X' || 'O') ||
+    t[2] == t[5] && t[2] == t[8] && t[2] == ('X' || 'O') ||
+    t[0] == t[4] && t[0] == t[8] && t[0] == ('X' || 'O') ||
+    t[6] == t[4] && t[6] == t[2] && t[6] == ('X' || 'O')
   ) {
     console.log('hay ganador')
+    return true
+
   } else {
     console.log('no hay ganador')
+    return false
   }
 }
 

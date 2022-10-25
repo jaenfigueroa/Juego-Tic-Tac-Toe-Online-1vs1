@@ -1,5 +1,5 @@
-const DOMINIO = 'http://localhost:3000'
-// const DOMINIO = 'https://tic-tac-toe-jaenfigueroa.herokuapp.com'
+// const DOMINIO = 'http://localhost:3000'
+const DOMINIO = 'https://tic-tac-toe-jaenfigueroa.herokuapp.com'
 /////////////////////////////////////////////////////////////////////////////
 const seccion1 = document.querySelector('#seccion1')
 const seccion2 = document.querySelector('#seccion2')
@@ -33,14 +33,16 @@ let armaEnemigoValor
 
 let arrayTableroLocal = ['', '', '', '', '', '', '', '', '']
 
+//NUEVO
+let nombreGanador
 //OTRO
 let permisoDeContinuar
 //ESCUCHADOR DE EVENTO DE EMPEZAR JUEGO/////////////////////////
 botonJugar.addEventListener('click', jugar)
 
 function jugar() {
-  nombreJugador = inputName.value
-  console.log('el nombre obtenido del input es: ', nombreJugador);
+  nombreJugadorLocal = inputName.value
+  console.log('el nombre obtenido del input es: ', nombreJugadorLocal);
 
   registrarNuevoUsuario()
 
@@ -69,7 +71,7 @@ function jugar() {
 //REGISTRAR NUEVO USUARIO///////////////////////////////////////
 function registrarNuevoUsuario() {
 
-  let url = `${DOMINIO}/registrarJugador/${nombreJugador}`
+  let url = `${DOMINIO}/registrarJugador/${nombreJugadorLocal}`
 
   fetch(url)
     .then((res) => {
@@ -79,7 +81,7 @@ function registrarNuevoUsuario() {
           console.log(mensaje);
 
           //asignar y rellenar los valores llegados del backend en local
-          nombreJugadorLocal = nombreJugador
+          nombreJugadorLocal = nombreJugadorLocal
           idJugadorLocal = idJugador
           indiceJugadorLocal = indiceJugador
           indiceGrupoLocal = indiceGrupo
@@ -212,7 +214,8 @@ function enviarTableroActualizado() {
   let url = `${DOMINIO}/enviarTablero/${idJugadorLocal}`
   let contenido = {
     indiceGrupoLocal,
-    arrayTableroLocal
+    arrayTableroLocal,
+    nombreJugadorLocal
   }
 
   fetch(url, {
@@ -224,12 +227,20 @@ function enviarTableroActualizado() {
   })
     .then((res) => {
       if (res.ok) {
-        res.json().then(({ mensaje }) => {
+        res.json().then(({ mensaje, hayGanador }) => {
 
           console.log(mensaje);
 
-          //despues de enviar el tablero se bloquea y empieza a pedir el tablero actualizado
-          traerTableroActualizado()
+
+          //antes de volver a pedir el tablero actualizado , comprobar si gano o no ESTOY AQUIIIIIIIIIIIIIIIIIIII
+          if (hayGanador[0] == true) {
+            obtenerGanadorPerdedor(hayGanador) ////////////AQUI ESTOYYYYYYYYYYYYYYY
+
+            console.log('ARRAY DEL GANADOR QUE LLEGA DEL BACK: ', hayGanador);
+          } else {
+            //despues de enviar el tablero se bloquea y empieza a pedir el tablero actualizado
+            traerTableroActualizado()
+          }
 
         })
       }
@@ -255,7 +266,7 @@ function traerTableroActualizado() {
   })
     .then((res) => {
       if (res.ok) {
-        res.json().then(({ mensaje, tableroActualizado }) => {
+        res.json().then(({ mensaje, tableroActualizado, hayGanador }) => {
 
           console.log("Respuesta del servidor:", mensaje);
 
@@ -273,6 +284,11 @@ function traerTableroActualizado() {
             //actualizar el tablero/array local y renderizar las nuevas piezas en el tablero
             arrayTableroLocal = tableroActualizado
             renderizarPiezas(arrayTableroLocal)
+
+            //verificar si hay o no ganador y saccar los nombres si hay
+            if (hayGanador[0] == true) {
+              obtenerGanadorPerdedor(hayGanador) ////////////QUI ESTOYYYYYYYYYYYYYYY
+            }
           }
         })
       }
@@ -311,6 +327,7 @@ function desbloquearCajasVacias() {
 
   });
 }
+
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
@@ -320,15 +337,60 @@ function desbloquearCajasVacias() {
 ///2. MOSTRAR EL AVISO DE QUE GANO O PERDIO
 
 
-// MOSTRAR MENSAJE DEL GANADOR Y/O PERDEDOR////////////////////////////////////////
+// MOSTRAR MENSAJE DEL GANADOR Y/O PERDEDOR/////////////////////////////////
 const aviso1 = document.querySelector('#aviso1')
 const aviso2 = document.querySelector('#aviso2')
 
+const seccion3 = document.querySelector('#seccion3')
 
-///MOSTRAR GANADOR O PERDEDOR////////////////////////////
-function mostrarGanadorPerdedor(texto1 = '🥺PERDISTE🥺', texto2 = 'JUAN GANO LA PARTIDA') {
-  aviso1.textContent = texto1
-  aviso2.textContent = texto2
+//OBTENER NOMBRES DEL GANADOR Y PERDEDOR
+function obtenerGanadorPerdedor(hayGanador) {
+  console.log('entro en la funcion de obtener ganador o perdedor');
+  console.log(hayGanador);
+
+  let texto1
+  let texto2
+  let colorAviso
+
+  //obtener los nombre del ganador y perdeor y formar los textos
+  if (hayGanador[0]) {
+    if (nombreJugadorLocal == hayGanador[1]) {
+
+      console.log('asignar nombres a las variables de gaandor y perdedor');
+      nombreGanador = nombreJugadorLocal
+      nombrePerdedor = nombreEnemigoLocal
+
+      console.log('asignar los textos de ganaste, el orto juagdor perdio y color');
+      //mostrar AVISO de visctoria o derrota
+      texto1 = `⭐GANASTE⭐`
+      texto2 = `${nombrePerdedor} perdio el juego`
+      colorAviso = 'amarillo'
+
+    } else {
+      nombreGanador = nombreEnemigoLocal
+      nombrePerdedor = nombreJugadorLocal
+
+      //mostrar AVISO de visctoria o derrota
+      texto1 = `🥺PERDISTE🥺`
+      texto2 = `${nombreGanador} gano el juego`
+      colorAviso = 'celeste'
+    }
+
+
+    console.log('se se agrego blur a la seccion2 y se mostro la seccion3');
+    //CAMBIAR LAS PANTALLAS (MOSTRAR LA SECCION3 FINAL)
+    seccion2.classList.add('efecto-blur')
+    // seccion2.classList.toggle('desactivado')
+    seccion3.classList.remove('desactivado')
+
+    //PONER EL COLOR AMARILLO O CELESTE AL AVISO
+    aviso1.classList.add('colorAviso')
+
+    //rendecizar los textos en pantalla
+    aviso1.textContent = texto1
+    aviso2.textContent = texto2
+  }
+
 }
 
 

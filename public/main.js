@@ -1,5 +1,5 @@
-// const DOMINIO = 'http://localhost:3000'
-const DOMINIO = 'https://tic-tac-toe-jaenfigueroa.herokuapp.com'
+const DOMINIO = 'http://localhost:3000'
+// const DOMINIO = 'https://tic-tac-toe-jaenfigueroa.herokuapp.com'
 /////////////////////////////////////////////////////////////////////////////
 const seccion1 = document.querySelector('#seccion1')
 const seccion2 = document.querySelector('#seccion2')
@@ -200,9 +200,9 @@ function obtenerTableroNuevoDelHTML() {
 
 
 
-/// 1. ENVIAR EL ARRAY NUEVO AL ENEMIGO // LISTO
-/// 2. TTAER EL TABLERO ACTUALIZADO DEL BACKEND // LISTO
-/// 3. RENDERIZAR EL ARRAY DEL TABLERO QUE LLEGA Y ACTIVAR TURNO DEL OTRO JUGADOR // LISTO
+/// 1. ENVIAR EL ARRAY NUEVO AL ENEMIGO // COMPLETADO
+/// 2. TTAER EL TABLERO ACTUALIZADO DEL BACKEND // COMPLETADO
+/// 3. RENDERIZAR EL ARRAY DEL TABLERO QUE LLEGA Y ACTIVAR TURNO DEL OTRO JUGADOR // COMPLETADO
 
 //ENVIAR TABLERO ACTUALIZADO////////////////////////////////////
 function enviarTableroActualizado() {
@@ -301,48 +301,11 @@ function renderizarPiezas(arrayTablero) {
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
+/// TAREAS PENDIENTES
 
-
-
-
-
-
-
-
-
-////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////
-
-// function esperarTurno() {
-//   console.log('esperando turno');
-
-//   let url = `${DOMINIO}/esperarTurno/${indiceGrupo}`
-
-//   fetch(url)
-//     .then((res) => {
-//       if (res.ok) {
-//         res.json().then(({ candado }) => {
-
-//           // console.log('se supone que se acaba de recibir los candados');
-
-//           candadoIndividual = candado[indiceJugador]
-
-//           if (candadoIndividual) {
-//             console.log('PUEDE PRESIONAR');
-
-//             desactivarCajas(false)
-//             traerTableroActualizado()
-
-//           } else {
-//             console.log('NO PUEDE PRESIONAR');
-
-//             esperarTurno()
-//           }
-
-//         })
-//       }
-//     })
-// }
+///1. BLOQUEAR LAS CAJAS QUE YA TENGAN CONTENIDO/ARMAS
+///2. COMPROBAR QUIEN GANO
+///3. MOSTRAR EL AVISO DE QUE GANO O PERDIO
 
 
 

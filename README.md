@@ -2,8 +2,8 @@
 
 ## 🔗 Vista previa en Mobile
 
-<div display="flex" gap="20px">
-  <img src="./assets/captura-mobile1.png" align="center" style="width: 30%" />
+<div display="flex">
+  <img src="./assets/captura-mobile1.png" align="center" style="width: 30%" margin-left="20px" />
   <img src="./assets/captura-mobile2.png" align="center" style="width: 30%" />
 </div>
 

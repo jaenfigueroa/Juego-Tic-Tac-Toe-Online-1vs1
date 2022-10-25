@@ -9,7 +9,7 @@
 
 ## 🔗 Vista previa en Desktop
 
-<div display="flex" gap="50px">
+<div display="flex" flex-direction="column" gap="50px">
   <img src="./assets/captura-desktop1.png" align="center" style="width: 80%" />
   <img src="./assets/captura-desktop2.png" align="center" style="width: 80%" />
   

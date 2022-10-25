@@ -13,9 +13,13 @@
 
 ## 🔗 Vista previa en Desktop
 
-![App Screenshot](./assets/captura-desktop1.png)
-![App Screenshot](./assets/captura-desktop2.png)
+<div >
+  <img src="./assets/captura-desktop1.png" align="center" style="width: 50%" />
+</div>
 
+<div >
+  <img src="./assets/captura-desktop2.png" align="center" style="width: 50%" />
+</div>
 ## 🔗 Sitio web de la aplicacion
 
 https://tic-tac-toe-jaenfigueroa.herokuapp.com/

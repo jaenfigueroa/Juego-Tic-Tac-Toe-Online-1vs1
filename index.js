@@ -12,132 +12,154 @@ servidor.use(cors())
 const { v4: uuidv4 } = require('uuid')
 
 /////////////////////////////////////////////////////////////
-// class Jugador {
-//   constructor(id, nombre) {
-//     this.id = id
-//     this.nombre = nombre
-//   }
-// }
-
-// class Pareja {
-//   constructor(jugador1, jugador2, indexGrupo, tablero) {
-//     this.jugador1 = jugador1
-//     this.jugador2 = jugador2
-//     this.indexGrupo = indexGrupo
-//     this.tablero = tablero
-//   }
-// }
 /////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////
-let tablero = ['', '', '', '', '', '', '', '', '']
+let tableroDefault = ['', '', '', '', '', '', '', '', '']
 let jugadoresEnEspera = []
 let jugadoresConPareja = []
 
-// REGISTRAR JUGADOR NUEVO/////////////////////////////////////
-servidor.get('/unirme/:nombre', (req, res) => {
+//////////////////////////////////////////////////////////////////////////////////////////////////
+// REGISTRAR JUGADOR NUEVO////////////////////////////////////////////////////////////////////////
+servidor.get('/registrarJugador/:nombreJugador', (req, res) => {
+  //obtenemos el nombre del jugador nuevo
+  let nombreJugador = req.params.nombreJugador
+  //generamos un id unico
+  let idNuevo = uuidv4()
+  //obtenemos el indice del proximo array de la pareja
+  let indiceNuevoGrupo = jugadoresConPareja.length
 
-  let id = uuidv4()
-  let nombre = req.params.nombre
 
-  // let jugadorNuevo = new Jugador(id, nombre)
+  console.log('nombre del jugador nuevo:', nombreJugador);
+  console.log('id para el jugador nuevo:', idNuevo);
 
-  let jugadorNuevo = [
-    id,
-    nombre
-  ]
+  //creamos el objeto con los datos del jugador nuevo
+  let jugadorNuevo = {
+    id: idNuevo,
+    nombre: nombreJugador,
+  }
 
-  console.log('jugador nuveo', jugadorNuevo);
+  console.log('Objeto con los datos jugador nuevo:', jugadorNuevo);
+
   //agregar el jugador a la lista de espera
   jugadoresEnEspera.push(jugadorNuevo)
 
-  console.log('Jugador agregado a la lista de espera');
-  console.log(jugadoresEnEspera);
+  console.log('array con los jugadores en espera', jugadoresEnEspera);
 
+  //comprobar si ya hay 2 jugadores en espera 
   if (jugadoresEnEspera.length >= 2) {
+    console.log(nombreJugador + ': es el segundo jugador');
 
-    let indexGrupo = jugadoresConPareja.length
 
-    let nuevaPareja = [
-      [
+    console.log('indice del grupo nuevo: ', jugadoresConPareja.length);
+
+    //creamos un objeto con la nueva pareja
+    let nuevaPareja = {
+      jugadores: [
         jugadoresEnEspera[0],
         jugadoresEnEspera[1]
       ],
-      indexGrupo,
-      tablero
-    ]
-
-    jugadoresConPareja.push(nuevaPareja)
-    jugadoresEnEspera = []
-  }
-
-  console.log(jugadoresConPareja);
-
-  res.json({
-    mensaje: 'usuario agregado con exito',
-    id
-  })
-})
-
-// VEREFICAR SI TIENE PAREJA////////////////////////////////
-servidor.post('/verificarPareja/:id', (req, res) => {
-  let id = req.params.id
-
-  console.log('indice que llega', id);
-
-  console.log('vista previa', jugadoresConPareja);
-
-  if (jugadoresConPareja.length > 0) {
-
-    let resultadoArray = buscarindexGrupo(jugadoresConPareja, id)
-    let indiceDelGrupo = resultadoArray[0]
-
-    // console.log('inidce del grupo', indiceDelGrupo);
-
-    if (indiceDelGrupo !== 'no-existe') {
-
-      let indiceJugador = resultadoArray[1]
-
-      let arrayCompleto = jugadoresConPareja[indiceDelGrupo]
-
-      res.json({
-        seEncontro: true,
-        indiceDelGrupo,
-        indiceJugador,
-        arrayCompleto,
-      })
-    } else {
-      res.json({
-        seEncontro: false
-      })
+      tablero: tableroDefault
     }
 
+    console.log('Array de la nueva pareja: ' + nuevaPareja);
+
+    //agregar la nueva pareja al array de jugadores con pareja
+    jugadoresConPareja.push(nuevaPareja)
+    console.log('array de los jugadores con pareja: ', jugadoresConPareja);
+
+    //remover los 2 jugadores del array de jugadores en espera
+    jugadoresEnEspera.splice(0, 2)
+    console.log('array de los jugadores en espera: ', jugadoresEnEspera);
+
+    //responder con un mensaje al usuario
+    res.json({
+      mensaje: 'Usuario agregado al array de jugadores con pareja, junto a otro jugador',
+      permiso: true,
+      nombreJugador: nombreJugador,
+      idJugador: idNuevo,
+      indiceJugador: 1,
+      indiceGrupo: indiceNuevoGrupo
+    })
+  } else {
+    console.log(nombreJugador + ': es el primer jugador');
+    //responder con un mensaje al usuario
+    res.json({
+      mensaje: 'Usuario agregado al array de jugadores en espera',
+      permiso: false,
+      nombreJugador: nombreJugador,
+      idJugador: idNuevo,
+      indiceJugador: 0,
+      indiceGrupo: indiceNuevoGrupo
+    })
+  }
+})
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// VEREFICAR SI TIENE PAREJA/////////////////////////////////////////////////////////////////////////
+servidor.post('/verificarPareja/', (req, res) => {
+
+  let indiceGrupo = req.body.indiceGrupoLocal
+  let indiceEnemigo = req.body.indiceEnemigoLocal
+
+  //verificar que el grupo de pareja ya este incluido en el array de parejas
+  if (jugadoresConPareja.length > indiceGrupo) {
+
+    //obtener el nombre del enemigo
+    let nombreEnemigo = jugadoresConPareja[indiceGrupo].jugadores[indiceEnemigo].nombre
+    console.log(nombreEnemigo);
+
+    res.json({
+      mensaje: 'Ya tienes pareja',
+      permiso: true,
+      nombreEnemigo
+    })
   } else {
     res.json({
-      seEncontro: false
+      mensaje: 'Aun no tienes pareja',
+      permiso: false
     })
   }
 
 })
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+servidor.post('/enviarTablero/:idUsuario', (req, res) => {
+  let indiceGrupo = req.body.indiceGrupoLocal
+  let tableroActualizado = req.body.arrayTableroLocal
 
-/////////////////////////////////////////////////////////////
-function buscarindexGrupo(array, id) {
+  // console.log('indice del grupo: ', indiceGrupo);
+  // console.log('tablero actualizado: ', tableroActualizado);
 
-  console.log(array);
+  //actualizar el tablero del grupo
+  jugadoresConPareja[indiceGrupo].tablero = tableroActualizado
 
-  for (let x = 0; x < array.length; x++) {
+  console.log('array de jugadores con pareja con el tablero actualizado: ', jugadoresConPareja);
 
-    for (let y = 0; y < 2; y++) {
+  res.json({
+    mensaje: 'tablero del backend actualizado con exito',
+  })
+})
 
-      if (array[x][0][y][0] == id) {
-        console.log('se encontro el index del grupo es: ' + x);
-        return [x, y]
-      }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+servidor.post('/traerTablero/:idUsuario', (req, res) => {
+  let indiceGrupo = req.body.indiceGrupoLocal
+  console.log(indiceGrupo);
 
-    }
-  }
-  return 'no-existe'
-}
+  // obtener el array actualizado
+  let tableroActualizado = jugadoresConPareja[indiceGrupo].tablero
+
+  console.log('tablero actualizado para enviar: ', tableroActualizado);
+
+  res.json({
+    mensaje: 'indice del grupo recibido',
+    tableroActualizado
+  })
+
+})
+
+
+
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 const PUERTO = process.env.PORT || 3000

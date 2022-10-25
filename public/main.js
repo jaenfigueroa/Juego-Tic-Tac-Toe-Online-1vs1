@@ -1,4 +1,5 @@
-const DOMINIO = 'http://localhost:3000'
+// const DOMINIO = 'http://localhost:3000'
+const DOMINIO = 'https://tic-tac-toe-jaenfigueroa.herokuapp.com'
 /////////////////////////////////////////////////////////////////////////////
 const seccion1 = document.querySelector('#seccion1')
 const seccion2 = document.querySelector('#seccion2')

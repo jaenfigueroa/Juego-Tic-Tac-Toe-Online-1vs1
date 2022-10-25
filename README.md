@@ -14,11 +14,11 @@
 ## 🔗 Vista previa en Desktop
 
 <div >
-  <img src="./assets/captura-desktop1.png" align="center" style="width: 50%" />
+  <img src="./assets/captura-desktop1.png" align="center" style="width: 80%" />
 </div>
-
+##
 <div >
-  <img src="./assets/captura-desktop2.png" align="center" style="width: 50%" />
+  <img src="./assets/captura-desktop2.png" align="center" style="width: 80%" />
 </div>
 ## 🔗 Sitio web de la aplicacion
 

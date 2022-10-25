@@ -3,7 +3,7 @@
 ## 🔗 Vista previa en Mobile
 
 <div display="flex">
-  <img src="./assets/captura-mobile1.png" align="center" style="width: 30%" margin-left="10%" />
+  <img src="./assets/captura-mobile1.png" align="center" style="width: 30%" />
   <img src="./assets/captura-mobile2.png" align="center" style="width: 30%" />
 </div>
 

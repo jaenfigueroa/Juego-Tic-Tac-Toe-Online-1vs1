@@ -294,18 +294,50 @@ function renderizarPiezas(arrayTablero) {
 
   console.log('se renderizo las piezas del tablero actualizado');
 
-  //desbloquear tablero
-  bloquearTablero(false)
+  //desbloquear cajas vacias
+  desbloquearCajasVacias()
 }
 
+//DESBLOQUEAR SOLO LAS CAJAS SIN CONTENIDO/ARMAS//////////////////////////////////
+function desbloquearCajasVacias() {
+  let todasLasCajas = contenedorCajas.querySelectorAll('.caja')
+
+  todasLasCajas.forEach(caja => {
+    if (caja.textContent == '') {
+
+      caja.disabled = false
+    }
+
+  });
+}
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////
 /// TAREAS PENDIENTES
 
-///1. BLOQUEAR LAS CAJAS QUE YA TENGAN CONTENIDO/ARMAS
-///2. COMPROBAR QUIEN GANO
-///3. MOSTRAR EL AVISO DE QUE GANO O PERDIO
+///1. COMPROBAR QUIEN GANO
+///2. MOSTRAR EL AVISO DE QUE GANO O PERDIO
 
+
+//COMPROBAR VICTORIA////////////////////////////////////////////////////////
+function comprobarVictoria(t) {
+  if (
+    t[0] == t[1] && t[0] == t[2] ||
+    t[3] == t[4] && t[3] == t[5] ||
+    t[6] == t[7] && t[6] == t[8] ||
+    t[0] == t[3] && t[0] == t[6] ||
+    t[1] == t[4] && t[1] == t[7] ||
+    t[2] == t[5] && t[2] == t[8] ||
+    t[0] == t[4] && t[0] == t[8] ||
+    t[6] == t[4] && t[6] == t[2]
+  ) {
+    console.log('hay ganador')
+  } else {
+    console.log('no hay ganador')
+  }
+}
+
+
+// MOSTRAR MENSAJE DEL GANADOR Y/O PERDEDOR////////////////////////////////////////
 
 

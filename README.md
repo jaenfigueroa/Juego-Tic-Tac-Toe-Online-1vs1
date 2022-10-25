@@ -10,13 +10,13 @@
 ## 🔗 Vista previa en Desktop
 
 <div display="flex">
-  <img src="./assets/captura-desktop1.png" align="center" style="width: 80%" />
+  <img src="./assets/captura-desktop1.png" align="center" style="width: 90%" />
 </div>
 
 ##
 
 <div >
-  <img src="./assets/captura-desktop2.png" align="center" style="width: 80%" />
+  <img src="./assets/captura-desktop2.png" align="center" style="width: 90%" />
 </div>
 
 ## 🔗 Sitio web de la aplicacion

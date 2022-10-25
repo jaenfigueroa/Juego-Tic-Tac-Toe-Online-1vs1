@@ -22,6 +22,7 @@
 <div >
   <img src="./assets/captura-desktop2.png" align="center" style="width: 80%" />
 </div>
+
 ## 🔗 Sitio web de la aplicacion
 
 https://tic-tac-toe-jaenfigueroa.herokuapp.com/

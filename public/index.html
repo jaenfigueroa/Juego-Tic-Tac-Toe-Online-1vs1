@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="3 en linea" />
+    <meta name="robots" content="index, follow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3 en linea</title>
+    <!-- css -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- js -->
+    <script src="main.js" defer></script>
+  </head>
+
+  <body>
+    <main>
+      <!-- ---------------------- -->
+      <section class="contenedor-total" id="seccion1">
+        <div class="contenedor-formulario">
+          <div class="formulario" id="formulario">
+            <label for="inputName">
+              <span class="formulario__encabezado">¿Cual es tu nombre?</span>
+              <input
+                type="text"
+                class="formulario__input-name"
+                id="inputName"
+                autocomplete="name"
+                placeholder="Nombre"
+                required />
+            </label>
+            <div class="contenedor-boton">
+              <button class="formulario__boton" id="botonJugar">Jugar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- ---------------------- -->
+      <section class="seccion2 desactivado" id="seccion2">
+        <div class="contenedor-jugadores">
+          <div class="jugador">
+            <span class="jugador__nombre" id="jugador"></span>
+            <div class="jugador__simbolo" id="armaJugador"></div>
+          </div>
+          <div class="jugador">
+            <span class="jugador__nombre" id="enemigo"></span>
+            <div class="jugador__simbolo" id="armaEnemigo"></div>
+          </div>
+        </div>
+        <div class="contenedor-cajas" id="contenedorCajas">
+          <button class="caja" id="caja1"></button>
+          <button class="caja" id="caja2"></button>
+          <button class="caja" id="caja3"></button>
+          <button class="caja" id="caja4"></button>
+          <button class="caja" id="caja5"></button>
+          <button class="caja" id="caja6"></button>
+          <button class="caja" id="caja7"></button>
+          <button class="caja" id="caja8"></button>
+          <button class="caja" id="caja9"></button>
+        </div>
+      </section>
+      <!-- ---------------------- -->
+    </main>
+  </body>
+</html>

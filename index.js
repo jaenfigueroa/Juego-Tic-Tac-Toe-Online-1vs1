@@ -11,6 +11,8 @@ servidor.use(cors())
 //para generar id unicos
 const { v4: uuidv4 } = require('uuid')
 
+//para que cuando se visite la pagina principal '/' muestre los archivos de public
+servidor.use(express.static('public'))
 /////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////
 let tableroDefault = ['', '', '', '', '', '', '', '', '']

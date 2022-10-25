@@ -2,8 +2,12 @@
 
 ## 🔗 Vista previa en Mobile
 
-![App Screenshot](./assets/captura-mobile1.png)
-![App Screenshot](./assets/captura-mobile2.png)
+<div >
+  <img src="./assets/captura-mobile1.png" align="center" style="width: 50%" />
+</div>
+<div >
+  <img src="./assets/captura-mobile2.png" align="center" style="width: 50%" />
+</div>
 
 ## 🔗 Vista previa en Desktop
 
